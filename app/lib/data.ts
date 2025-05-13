@@ -56,6 +56,11 @@ export async function fetchLatestInvoices() {
 
 export async function fetchCardData() {
     try {
+        console.log("wait 6 second");
+        await new Promise((resolve) => {
+            return setTimeout(resolve, 6000);
+        });
+
         // You can probably combine these into a single SQL query
         // However, we are intentionally splitting them to demonstrate
         // how to initialize multiple queries in parallel with JS.
