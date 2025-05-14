@@ -25,11 +25,18 @@ export async function createInvoice(formData: FormData) {
         status: formData.get("status"),
     });
 
+    const amountInCent = amount * 100;
+    const date = new Date().toISOString().split("T")[0];
+
     // test it aout
     console.log(rawFormData);
     console.log(typeof rawFormData.amount);
     console.log("type");
     console.log(`customerId = ${customerId}`);
-    console.log(`amount = ${amount} . type = ${typeof amount}`);
     console.log(`status = ${status}`);
+    console.log(`amount = ${amount} . type = ${typeof amount}`);
+    console.log(
+        `amount in cent = ${amountInCent} . type = ${typeof amountInCent}`
+    );
+    console.log(`date = ${date}`);
 }
