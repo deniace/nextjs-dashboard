@@ -46,9 +46,13 @@ export async function createInvoice(formData: FormData) {
     );
     console.log(`date = ${date}`);
 
-    await sql`INSERT INTO invoices (customer_id, amount, status, date)
-                VALUES (${customerId}, ${amountInCent}, ${status}, ${date});
-    `;
+    try {
+        await sql`INSERT INTO invoices (customer_id, amount, status, date)
+                    VALUES (${customerId}, ${amountInCent}, ${status}, ${date});
+        `;
+    } catch (error) {
+        console.log(error);
+    }
 
     revalidatePath("/dashboard/invoices");
     redirect("/dashboard/invoices");
@@ -69,18 +73,27 @@ export async function updateInvoice(id: string, formData: FormData) {
     console.log(`status = ${status}`);
 
     const amountInCent = amount * 100;
-
-    await sql`
+    try {
+        await sql`
         update invoices
             set customer_id = ${customerId}, amount = ${amountInCent}, status = ${status}
         where id = ${id};
     `;
+    } catch (error) {
+        console.log(error);
+    }
 
     revalidatePath("/dashboard/invoices");
     redirect("/dashboard/invoices");
 }
 
 export async function deleteInvoice(id: string) {
-    await sql`Delete from invoices where id = ${id}`;
+    throw new Error("tes error");
+
+    try {
+        await sql`Delete from invoices where id = ${id}`;
+    } catch (error) {
+        console.log(error);
+    }
     revalidatePath("dashboard/invoices");
 }
